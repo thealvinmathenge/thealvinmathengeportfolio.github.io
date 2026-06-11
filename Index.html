@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alvin — Animator · Illustrator · Graphic Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0e0c0a;
+    --bg2: #151210;
+    --bg3: #1c1814;
+    --terra: #c4622d;
+    --terra-light: #d4784a;
+    --ochre: #c9922a;
+    --cream: #e8ddd0;
+    --muted: #7a6e64;
+    --border: rgba(196,98,45,0.18);
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── AFRICAN PATTERN SVG BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cg fill='none' stroke='%23c4622d' stroke-opacity='0.045' stroke-width='0.8'%3E%3Crect x='10' y='10' width='60' height='60'/%3E%3Crect x='20' y='20' width='40' height='40'/%3E%3Cline x1='10' y1='10' x2='40' y2='40'/%3E%3Cline x1='70' y1='10' x2='40' y2='40'/%3E%3Cline x1='10' y1='70' x2='40' y2='40'/%3E%3Cline x1='70' y1='70' x2='40' y2='40'/%3E%3Ccircle cx='40' cy='40' r='6'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 80px 80px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  * { position: relative; z-index: 1; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 4rem;
+    background: linear-gradient(to bottom, rgba(14,12,10,0.95), transparent);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--cream);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--terra-light); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 12vw, 10rem);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    margin-bottom: 2rem;
+  }
+
+  .hero-name span {
+    display: block;
+    color: var(--terra);
+    font-style: italic;
+  }
+
+  .hero-title {
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    height: 1.4em;
+    overflow: hidden;
+  }
+
+  .hero-title-inner {
+    transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .hero-title-inner div { height: 1.4em; }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 4rem;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-scroll::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--terra);
+    opacity: 0.5;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 6rem 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 120px;
+  }
+
+  /* ── WORK SECTION ── */
+  #work { padding: 6rem 0; }
+  #work > .section-label { padding: 0 4rem; }
+
+  /* Category grid */
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .category-card {
+    background: var(--bg);
+    cursor: pointer;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .category-card:hover { background: var(--bg3); }
+
+  .category-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    transition: opacity 0.4s, transform 0.5s;
+    display: block;
+  }
+
+  .category-card:hover img { opacity: 0.8; transform: scale(1.03); }
+
+  /* placeholder when no image */
+  .category-card .placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--bg3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .placeholder-icon {
+    width: 48px;
+    height: 48px;
+    opacity: 0.15;
+  }
+
+  .category-info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 2rem 1.5rem 1.5rem;
+    background: linear-gradient(to top, rgba(14,12,10,0.95) 0%, transparent 100%);
+  }
+
+  .category-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: var(--cream);
+    display: block;
+  }
+
+  .category-count {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--terra);
+    text-transform: uppercase;
+    margin-top: 0.25rem;
+  }
+
+  .category-arrow {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  .category-card:hover .category-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .category-arrow svg { width: 12px; height: 12px; stroke: var(--terra); }
+
+  /* ── REEL VIEW ── */
+  .reel-view {
+    display: none;
+    position: relative;
+  }
+
+  .reel-view.active { display: block; }
+
+  .reel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .reel-back {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 0.3s;
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+  }
+
+  .reel-back:hover { color: var(--terra-light); }
+
+  .reel-back svg { width: 16px; height: 16px; stroke: currentColor; }
+
+  .reel-title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--cream);
+  }
+
+  .reel-counter {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+  }
+
+  /* Horizontal scroll track */
+  .reel-track-wrapper {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .reel-track {
+    display: flex;
+    transition: transform 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+    will-change: transform;
+  }
+
+  .reel-slide {
+    min-width: 100vw;
+    padding: 3rem 4rem;
+    display: flex;
+    gap: 4rem;
+    align-items: flex-start;
+  }
+
+  .reel-slide-media {
+    flex: 1;
+    max-width: 65%;
+  }
+
+  .reel-slide-media img {
+    width: 100%;
+    height: 60vh;
+    object-fit: contain;
+    background: #151210;
+    display: block;
+}
+
+  .reel-slide-media iframe {
+    width: 100%;
+    height: 60vh;
+    border: none;
+    display: block;
+  }
+
+  .reel-slide-info {
+    flex: 0 0 280px;
+    padding-top: 0.5rem;
+  }
+
+  .slide-client-badge {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--terra);
+    border: 1px solid var(--terra);
+    padding: 0.3rem 0.75rem;
+    margin-bottom: 1.25rem;
+    opacity: 0.8;
+  }
+
+  .slide-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--cream);
+  }
+
+  .slide-desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  /* Nav arrows */
+  .reel-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.5rem 4rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .reel-nav-btn {
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--border);
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.3s, background 0.3s;
+    font-family: var(--font-body);
+  }
+
+  .reel-nav-btn:hover {
+    border-color: var(--terra);
+    background: rgba(196,98,45,0.08);
+  }
+
+  .reel-nav-btn:disabled { opacity: 0.2; cursor: default; }
+  .reel-nav-btn svg { width: 16px; height: 16px; stroke: var(--cream); }
+
+  .reel-dots {
+    display: flex;
+    gap: 6px;
+    margin-left: 1rem;
+  }
+
+  .reel-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--muted);
+    transition: background 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+
+  .reel-dot.active {
+    background: var(--terra);
+    transform: scale(1.5);
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .about-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+  }
+
+  .about-heading em {
+    color: var(--terra);
+    font-style: italic;
+  }
+
+  .about-body {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--muted);
+    padding-top: 0.5rem;
+  }
+
+  .about-body p + p { margin-top: 1.2rem; }
+
+  .about-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .about-tag {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terra);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.75rem;
+  }
+
+  /* ── CONTACT ── */
+  #contact { text-align: center; padding: 8rem 4rem; }
+
+  .contact-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-sub {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3rem;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .contact-link-label {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--terra);
+  }
+
+  .contact-link-value {
+    font-size: 15px;
+    color: var(--cream);
+  }
+
+  .contact-link:hover .contact-link-value { color: var(--terra-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+  }
+
+  footer p {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+  }
+
+  /* ── FADE IN ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    #hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    #work > .section-label { padding: 0 1.5rem; }
+    .hero-name { font-size: clamp(3.5rem, 16vw, 6rem); }
+    .category-grid { grid-template-columns: repeat(2, 1fr); }
+    .reel-slide { flex-direction: column; padding: 2rem 1.5rem; gap: 2rem; }
+    .reel-slide-media { max-width: 100%; }
+    .reel-slide-info { flex: none; }
+    .reel-header, .reel-nav { padding-left: 1.5rem; padding-right: 1.5rem; }
+    #about { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-scroll { left: 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+  }
+
+  @media (max-width: 500px) {
+    .category-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Alvin</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-eyebrow">Nairobi, Kenya</p>
+  <h1 class="hero-name">
+    Alvin
+    <span>Mathenge</span>
+  </h1>
+  <div class="hero-title">
+    <div class="hero-title-inner" id="titleCycler">
+      <div>Animator</div>
+      <div>Illustrator</div>
+      <div>Graphic Designer</div>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll to explore</div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <p class="section-label">Selected Work</p>
+
+  <!-- CATEGORY GRID -->
+  <div class="category-grid" id="categoryGrid">
+
+    <div class="category-card" onclick="openReel('animations')">
+      <img src="images/anim-1-thumb.jpg" alt="Animation preview" onerror="this.style.display='none'">
+      <div class="category-info">
+        <span class="category-name">Animations</span>
+        <p class="category-count">3 works</p>
+      </div>
+      <div class="category-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </div>
+
+    <div class="category-card" onclick="openReel('illustrations')">
+      <img src="images/illus-1.jpg" alt="Illustration preview" onerror="this.style.display='none'">
+      <div class="category-info">
+        <span class="category-name">Illustrations</span>
+        <p class="category-count">3 works</p>
+      </div>
+      <div class="category-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </div>
+
+    <div class="category-card" onclick="openReel('graphicdesign')">
+      <img src="images/gd-tfc-1.jpg" alt="Graphic design preview" onerror="this.style.display='none'">
+      <div class="category-info">
+        <span class="category-name">Graphic Design</span>
+        <p class="category-count">9 works</p>
+      </div>
+      <div class="category-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </div>
+
+    <div class="category-card" onclick="openReel('personal')">
+      <img src="images/personal-1.jpg" alt="Personal work preview" onerror="this.style.display='none'">
+      <div class="category-info">
+        <span class="category-name">Personal</span>
+        <p class="category-count">3 works</p>
+      </div>
+      <div class="category-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- REEL VIEWS -->
+
+  <!-- ANIMATIONS REEL -->
+  <div class="reel-view" id="reel-animations">
+    <div class="reel-header">
+      <button class="reel-back" onclick="closeReel()">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        All work
+      </button>
+      <span class="reel-title">Animations</span>
+      <span class="reel-counter" id="counter-animations">1 / 3</span>
+    </div>
+    <div class="reel-track-wrapper">
+      <div class="reel-track" id="track-animations">
+
+        <div class="reel-slide">
+          <div class="reel-slide-media">
+            <!-- ANIMATION 1 — paste your YouTube video ID below (the part after ?v=) -->
+            <iframe src="https://www.youtube.com/embed/f7QmLVrX4SA" allowfullscreen title="Animation 1"></iframe>
+          </div>
+          <div class="reel-slide-info">
+            <span class="slide-title">Hadithi Time with Sifa and Jake</span>
+            <p class="slide-desc">My best animated work Yet— The first episode to an animated Kenyan children series.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media">
+            <!-- ANIMATION 2 — paste your YouTube video ID below -->
+            <iframe src="https://www.youtube.com/embed/Pjb9ZcmEfa8" allowfullscreen title="Animation 2"></iframe>
+          </div>
+          <div class="reel-slide-info">
+            <span class="slide-title">Zawadi Insurance Ad</span>
+            <p class="slide-desc">A short animated ad for an insurance company.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media">
+            <!-- ANIMATION 3 — paste your YouTube video ID below -->
+            <iframe src="https://www.youtube.com/embed/dK39D-jDOdw" allowfullscreen title="Animation 3"></iframe>
+          </div>
+          <div class="reel-slide-info">
+            <span class="slide-title">Adventures with Elsy Ad</span>
+            <p class="slide-desc">A long form animated ad for a fictional tours company.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="reel-nav">
+      <button class="reel-nav-btn" onclick="prevSlide('animations')" id="prev-animations" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <button class="reel-nav-btn" onclick="nextSlide('animations')" id="next-animations">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <div class="reel-dots" id="dots-animations">
+        <div class="reel-dot active" onclick="goToSlide('animations',0)"></div>
+        <div class="reel-dot" onclick="goToSlide('animations',1)"></div>
+        <div class="reel-dot" onclick="goToSlide('animations',2)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ILLUSTRATIONS REEL -->
+  <div class="reel-view" id="reel-illustrations">
+    <div class="reel-header">
+      <button class="reel-back" onclick="closeReel()">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        All work
+      </button>
+      <span class="reel-title">Illustrations</span>
+      <span class="reel-counter" id="counter-illustrations">1 / 3</span>
+    </div>
+    <div class="reel-track-wrapper">
+      <div class="reel-track" id="track-illustrations">
+
+        <div class="reel-slide">
+          <div class="reel-slide-media"><img src="images/illus-1.jpg" alt="Illustration 1"></div>
+          <div class="reel-slide-info">
+            <span class="slide-title">Wafuraaa Concept Illustration</span>
+            <p class="slide-desc">A hillarously Kenyan character design — Pushing myself out of corporate design work.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media"><img src="images/illus-2.jpg" alt="Illustration 2"></div>
+          <div class="reel-slide-info">
+            <span class="slide-title">Brandon Concept Illustration</span>
+            <p class="slide-desc">After Wafuraaa, I had to give him a patner, same style, different background.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media"><img src="images/illus-3.jpg" alt="Illustration 3"></div>
+          <div class="reel-slide-info">
+            <span class="slide-title">Unga Mascots Illustration</span>
+            <p class="slide-desc">What If a Kenyan company wanted mascots ?? ...</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="reel-nav">
+      <button class="reel-nav-btn" onclick="prevSlide('illustrations')" id="prev-illustrations" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <button class="reel-nav-btn" onclick="nextSlide('illustrations')" id="next-illustrations">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <div class="reel-dots" id="dots-illustrations">
+        <div class="reel-dot active" onclick="goToSlide('illustrations',0)"></div>
+        <div class="reel-dot" onclick="goToSlide('illustrations',1)"></div>
+        <div class="reel-dot" onclick="goToSlide('illustrations',2)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRAPHIC DESIGN REEL -->
+  <div class="reel-view" id="reel-graphicdesign">
+    <div class="reel-header">
+      <button class="reel-back" onclick="closeReel()">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        All work
+      </button>
+      <span class="reel-title">Graphic Design</span>
+      <span class="reel-counter" id="counter-graphicdesign">1 / 9</span>
+    </div>
+    <div class="reel-track-wrapper">
+      <div class="reel-track" id="track-graphicdesign">
+
+        <div class="reel-slide">
+          <div class="reel-slide-media"><img src="images/gd-tfc-1.jpg" alt="TFC design 1"></div>
+          <div class="reel-slide-info">
+            <span class="slide-client-badge">The Feminist Code</span>
+            <span class="slide-title">Design One</span>
+            <p class="slide-desc">Pan-African feminist and sexuality education organisation.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media"><img src="images/gd-tfc-2.jpg" alt="TFC design 2"></div>
+          <div class="reel-slide-info">
+            <span class="slide-client-badge">The Feminist Code</span>
+            <span class="slide-title">Design Two</span>
+            <p class="slide-desc">Pan-African feminist and sexuality education organisation.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media"><img src="images/gd-tfc-3.jpg" alt="TFC design 3"></div>
+          <div class="reel-slide-info">
+            <span class="slide-client-badge">The Feminist Code</span>
+            <span class="slide-title">Design Three</span>
+            <p class="slide-desc">Pan-African feminist and sexuality education organisation.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media"><img src="images/gd-glow-1.jpg" alt="Glow Together 1"></div>
+          <div class="reel-slide-info">
+            <span class="slide-client-badge">Glow Together Foundation</span>
+            <span class="slide-title">Design One</span>
+            <p class="slide-desc">Kenyan NGO dedicated to mentorship and support for orphaned children.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media"><img src="images/gd-glow-2.jpg" alt="Glow Together 2"></div>
+          <div class="reel-slide-info">
+            <span class="slide-client-badge">Glow Together Foundation</span>
+            <span class="slide-title">Design Two</span>
+            <p class="slide-desc">Kenyan NGO dedicated to mentorship and support for orphaned children.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media"><img src="images/gd-lila-1.jpg" alt="Live Life Adventures 1"></div>
+          <div class="reel-slide-info">
+            <span class="slide-client-badge">Live Life Adventures</span>
+            <span class="slide-title">Design One</span>
+            <p class="slide-desc">Kenyan travel and tours company curating immersive local experiences.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media"><img src="images/gd-lila-2.jpg" alt="Live Life Adventures 2"></div>
+          <div class="reel-slide-info">
+            <span class="slide-client-badge">Live Life Adventures</span>
+            <span class="slide-title">Design Two</span>
+            <p class="slide-desc">Kenyan travel and tours company curating immersive local experiences.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media"><img src="images/gd-doodle-1.jpg" alt="Doodle Solutions 1"></div>
+          <div class="reel-slide-info">
+            <span class="slide-client-badge">Doodle Solutions</span>
+            <span class="slide-title">Design One</span>
+            <p class="slide-desc">Branding and printing firm specialising in identity and visual communication.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media"><img src="images/gd-doodle-2.jpg" alt="Doodle Solutions 2"></div>
+          <div class="reel-slide-info">
+            <span class="slide-client-badge">Doodle Solutions</span>
+            <span class="slide-title">Design Two</span>
+            <p class="slide-desc">Branding and printing firm specialising in identity and visual communication.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="reel-nav">
+      <button class="reel-nav-btn" onclick="prevSlide('graphicdesign')" id="prev-graphicdesign" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <button class="reel-nav-btn" onclick="nextSlide('graphicdesign')" id="next-graphicdesign">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <div class="reel-dots" id="dots-graphicdesign">
+        <div class="reel-dot active" onclick="goToSlide('graphicdesign',0)"></div>
+        <div class="reel-dot" onclick="goToSlide('graphicdesign',1)"></div>
+        <div class="reel-dot" onclick="goToSlide('graphicdesign',2)"></div>
+        <div class="reel-dot" onclick="goToSlide('graphicdesign',3)"></div>
+        <div class="reel-dot" onclick="goToSlide('graphicdesign',4)"></div>
+        <div class="reel-dot" onclick="goToSlide('graphicdesign',5)"></div>
+        <div class="reel-dot" onclick="goToSlide('graphicdesign',6)"></div>
+        <div class="reel-dot" onclick="goToSlide('graphicdesign',7)"></div>
+        <div class="reel-dot" onclick="goToSlide('graphicdesign',8)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERSONAL REEL -->
+  <div class="reel-view" id="reel-personal">
+    <div class="reel-header">
+      <button class="reel-back" onclick="closeReel()">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        All work
+      </button>
+      <span class="reel-title">Personal Projects</span>
+      <span class="reel-counter" id="counter-personal">1 / 3</span>
+    </div>
+    <div class="reel-track-wrapper">
+      <div class="reel-track" id="track-personal">
+
+        <div class="reel-slide">
+          <div class="reel-slide-media"><img src="images/personal-1.jpg" alt="Personal project 1"></div>
+          <div class="reel-slide-info">
+            <span class="slide-title">Women's Day - Cosmically</span>
+            <p class="slide-desc">An art piece I made to honour women.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media"><img src="images/personal-2.jpg" alt="Personal project 2"></div>
+          <div class="reel-slide-info">
+            <span class="slide-title">Character Design </span>
+            <p class="slide-desc">What would an anime with Maasai people look like? Well I decided to try and find out.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media"><img src="images/personal-3.jpg" alt="Personal project 3"></div>
+          <div class="reel-slide-info">
+            <span class="slide-title">Brand Identity</span>
+            <p class="slide-desc">I created a fictional company and branded it fully.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="reel-nav">
+      <button class="reel-nav-btn" onclick="prevSlide('personal')" id="prev-personal" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <button class="reel-nav-btn" onclick="nextSlide('personal')" id="next-personal">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <div class="reel-dots" id="dots-personal">
+        <div class="reel-dot active" onclick="goToSlide('personal',0)"></div>
+        <div class="reel-dot" onclick="goToSlide('personal',1)"></div>
+        <div class="reel-dot" onclick="goToSlide('personal',2)"></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="fade-in">
+  <div>
+    <p class="section-label">About</p>
+    <h2 class="about-heading">
+      Telling African<br>stories through<br><em>motion & image</em>
+    </h2>
+  </div>
+  <div>
+    <p class="about-body">
+      I'm Alvin — an animator, illustrator, and graphic designer based in Nairobi, Kenya. My work sits at the intersection of clean visual storytelling and the most African creative tradition: bold shapes, deliberate color, and imagery rooted in the continent's richness.
+    </p>
+    <p class="about-body">
+      I've worked across animation, editorial illustration, brand identity, and campaign design — for NGOs, foundations, and creative businesses. Whether building a character or a campaign poster, my goal is the same: make something that holds the eye and earns its space.
+    </p>
+    <div class="about-tags">
+      <span class="about-tag">2D Animation</span>
+      <span class="about-tag">3D Animation</span>
+      <span class="about-tag">Illustration</span>
+      <span class="about-tag">Graphic Design</span>
+      <span class="about-tag">Visual Storytelling</span>
+      <span class="about-tag">Branding</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="fade-in">
+  <p class="section-label" style="justify-content:center;">Get in touch</p>
+  <h2 class="contact-heading">Let's make something.</h2>
+  <p class="contact-sub">Open to commissions, collaborations, and full-time roles</p>
+  <div class="contact-links">
+    <a href="mailto:thealvinmathenge@gmail.com" class="contact-link">
+      <span class="contact-link-label">Email</span>
+      <span class="contact-link-value">thealvinmathenge@gmail.com</span>
+    </a>
+    <a href="tel:+254112865398" class="contact-link">
+      <span class="contact-link-label">Phone</span>
+      <span class="contact-link-value">+254 112 865 398</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Alvin Mathenge</p>
+  <p>Nairobi, Kenya</p>
+</footer>
+
+<script>
+  // ── TITLE CYCLER ──
+  const titles = ['Animator', 'Illustrator', 'Graphic Designer'];
+  let titleIdx = 0;
+  const cycler = document.getElementById('titleCycler');
+  setInterval(() => {
+    titleIdx = (titleIdx + 1) % titles.length;
+    cycler.style.transform = `translateY(-${titleIdx * 1.4}em)`;
+  }, 2200);
+
+  // ── REEL STATE ──
+  const reelState = {};
+
+  function openReel(id) {
+    document.getElementById('categoryGrid').style.display = 'none';
+    document.getElementById('reel-' + id).classList.add('active');
+    if (!reelState[id]) reelState[id] = 0;
+    updateReel(id);
+    window.scrollTo({ top: document.getElementById('work').offsetTop - 60, behavior: 'smooth' });
+  }
+
+  function closeReel() {
+    document.querySelectorAll('.reel-view').forEach(r => r.classList.remove('active'));
+    document.getElementById('categoryGrid').style.display = 'grid';
+  }
+
+  function updateReel(id) {
+    const track = document.getElementById('track-' + id);
+    const slides = track.querySelectorAll('.reel-slide');
+    const idx = reelState[id];
+    const total = slides.length;
+
+    track.style.transform = `translateX(-${idx * 100}vw)`;
+
+    document.getElementById('counter-' + id).textContent = `${idx + 1} / ${total}`;
+
+    const prevBtn = document.getElementById('prev-' + id);
+    const nextBtn = document.getElementById('next-' + id);
+    if (prevBtn) prevBtn.disabled = idx === 0;
+    if (nextBtn) nextBtn.disabled = idx === total - 1;
+
+    const dots = document.querySelectorAll('#dots-' + id + ' .reel-dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }
+
+  function nextSlide(id) {
+    const track = document.getElementById('track-' + id);
+    const total = track.querySelectorAll('.reel-slide').length;
+    if (reelState[id] < total - 1) {
+      reelState[id]++;
+      updateReel(id);
+    }
+  }
+
+  function prevSlide(id) {
+    if (reelState[id] > 0) {
+      reelState[id]--;
+      updateReel(id);
+    }
+  }
+
+  function goToSlide(id, idx) {
+    reelState[id] = idx;
+    updateReel(id);
+  }
+
+  // ── KEYBOARD NAV ──
+  document.addEventListener('keydown', e => {
+    const active = document.querySelector('.reel-view.active');
+    if (!active) return;
+    const id = active.id.replace('reel-', '');
+    if (e.key === 'ArrowRight') nextSlide(id);
+    if (e.key === 'ArrowLeft') prevSlide(id);
+    if (e.key === 'Escape') closeReel();
+  });
+
+  // ── TOUCH SWIPE ──
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const active = document.querySelector('.reel-view.active');
+    if (!active) return;
+    const id = active.id.replace('reel-', '');
+    const dx = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 50) dx > 0 ? nextSlide(id) : prevSlide(id);
+  });
+
+  // ── FADE IN ON SCROLL ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
