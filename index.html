@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alvin — Animator · Illustrator · Graphic Designer</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Alvin · Animator · Illustrator · Graphic Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500&family=Baloo+2:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -20,6 +20,7 @@
     --border: rgba(196,98,45,0.18);
     --font-display: 'Cormorant Garamond', Georgia, serif;
     --font-body: 'Inter', sans-serif;
+    --font-fun: 'Baloo 2', cursive;
   }
 
   html { scroll-behavior: smooth; }
@@ -88,10 +89,18 @@
   #hero {
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
     padding: 0 4rem;
     border-bottom: 1px solid var(--border);
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .hero-eyebrow {
@@ -153,6 +162,63 @@
     height: 1px;
     background: var(--terra);
     opacity: 0.5;
+  }
+
+  /* ── HERO CHARACTER ART ── */
+  .hero-character {
+    position: relative;
+    flex: 0 0 auto;
+    width: clamp(280px, 30vw, 460px);
+    height: 78vh;
+    margin-right: 3rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    cursor: default;
+  }
+
+  .hero-character img {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transform: translate(-50%, 0);
+    transition: opacity 1.2s ease;
+  }
+
+  .hero-character img.active {
+    opacity: 1;
+  }
+
+  .hero-character:hover img.active {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.2s ease;
+    transform: translate(calc(-50% - 18px), -14px);
+  }
+
+  .hero-caption {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 1.5rem);
+    transform: translateY(-50%) translateX(10px);
+    width: 220px;
+    text-align: right;
+    font-family: var(--font-fun);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--terra);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hero-character:hover .hero-caption.active {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
   }
 
   /* ── SECTIONS ── */
@@ -368,6 +434,56 @@
     display: block;
   }
 
+  /* ── VIDEO POSTER / CLICK-TO-PLAY ── */
+  .video-poster {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    background: #151210;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .video-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s, filter 0.3s;
+  }
+
+  .video-poster:hover img {
+    transform: scale(1.03);
+    filter: brightness(0.7);
+  }
+
+  .video-poster-play {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    background: rgba(196,98,45,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s, transform 0.3s;
+    pointer-events: none;
+  }
+
+  .video-poster:hover .video-poster-play {
+    background: var(--terra);
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  .video-poster-play svg {
+    width: 26px;
+    height: 26px;
+    fill: var(--cream);
+    margin-left: 4px;
+  }
+
   .reel-slide-info {
     flex: 0 0 280px;
     padding-top: 0.5rem;
@@ -383,6 +499,79 @@
     padding: 0.3rem 0.75rem;
     margin-bottom: 1.25rem;
     opacity: 0.8;
+  }
+
+  /* ── CLIENT BADGE HOVER CARD ── */
+  .client-badge-wrap {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .client-tooltip {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 14px);
+    left: auto;
+    bottom: auto;
+    width: 260px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 1rem 1.1rem;
+    font-size: 12px;
+    line-height: 1.65;
+    color: var(--muted);
+    text-transform: none;
+    letter-spacing: normal;
+    opacity: 0;
+    transform: translateY(-50%) translateX(8px);
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+    z-index: 30;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+
+  .client-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 10px;
+    height: 10px;
+    background: var(--bg3);
+    border-top: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .client-badge-wrap:hover .client-tooltip,
+  .client-badge-wrap.show .client-tooltip {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+    pointer-events: auto;
+  }
+
+  @media (max-width: 900px) {
+    .client-tooltip {
+      width: 220px;
+      top: calc(100% + 10px);
+      bottom: auto;
+      left: 0;
+      right: auto;
+      transform: translateY(6px);
+    }
+    .client-tooltip::after {
+      top: -5px;
+      left: 20px;
+      border-top: none;
+      border-right: none;
+      border-left: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .client-badge-wrap:hover .client-tooltip,
+    .client-badge-wrap.show .client-tooltip {
+      transform: translateY(0);
+    }
   }
 
   .slide-title {
@@ -495,6 +684,21 @@
     color: var(--terra);
     border: 1px solid var(--border);
     padding: 0.3rem 0.75rem;
+    background: none;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: background 0.3s, border-color 0.3s, color 0.3s;
+  }
+
+  .about-tag.linked:hover {
+    background: rgba(196,98,45,0.1);
+    border-color: var(--terra);
+    color: var(--terra-light);
+  }
+
+  .about-tag.unlinked {
+    cursor: default;
+    opacity: 0.6;
   }
 
   /* ── CONTACT ── */
@@ -588,6 +792,7 @@
     #about { grid-template-columns: 1fr; gap: 2rem; }
     .hero-scroll { left: 1.5rem; }
     .nav-links { gap: 1.5rem; }
+    .hero-character { display: none; }
   }
 
   @media (max-width: 500px) {
@@ -614,17 +819,27 @@
 
 <!-- HERO -->
 <section id="hero">
-  <p class="hero-eyebrow">Nairobi, Kenya</p>
-  <h1 class="hero-name">
-    Alvin
-    <span>Mathenge</span>
-  </h1>
-  <div class="hero-title">
-    <div class="hero-title-inner" id="titleCycler">
-      <div>Animator</div>
-      <div>Illustrator</div>
-      <div>Graphic Designer</div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Nairobi, Kenya</p>
+    <h1 class="hero-name">
+      Alvin
+      <span>Mathenge</span>
+    </h1>
+    <div class="hero-title">
+      <div class="hero-title-inner" id="titleCycler">
+        <div>Animator</div>
+        <div>Illustrator</div>
+        <div>Graphic Designer</div>
+      </div>
     </div>
+  </div>
+  <div class="hero-character" id="heroCharacter">
+    <img src="images/Guy1.png" class="active" data-idx="0" alt="Wafuraaa character illustration">
+    <img src="images/Guy2.png" data-idx="1" alt="Bradley character illustration">
+    <img src="images/2guys.png" data-idx="2" alt="Wafuraaa and Bradley character illustration">
+    <p class="hero-caption active" data-idx="0">Meet Wafuraaa, one of my favourite OCs! A typical Kenyan man inspired by a Luhya guy and his undying love for ugali!</p>
+    <p class="hero-caption" data-idx="1">This is Bradley, the city kid who can't stand being called by his shags name, Omondi! He's on a mission to get ripped like Big Wafuraaa!</p>
+    <p class="hero-caption" data-idx="2">Wafuraaa and Bradley, together at last! Two very different guys, one shared love for gains and ugali!</p>
   </div>
   <div class="hero-scroll">Scroll to explore</div>
 </section>
@@ -637,10 +852,10 @@
   <div class="category-grid" id="categoryGrid">
 
     <div class="category-card" onclick="openReel('animations')">
-      <img src="images/anim-1-thumb.jpg" alt="Animation preview" onerror="this.style.display='none'">
+      <img src="images/anim-1-poster.jpg" alt="Animation preview" onerror="this.style.display='none'">
       <div class="category-info">
         <span class="category-name">Animations</span>
-        <p class="category-count">3 works</p>
+        <p class="category-count">6 works</p>
       </div>
       <div class="category-arrow">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -673,7 +888,7 @@
       <img src="images/personal-1.jpg" alt="Personal work preview" onerror="this.style.display='none'">
       <div class="category-info">
         <span class="category-name">Personal</span>
-        <p class="category-count">3 works</p>
+        <p class="category-count">5 works</p>
       </div>
       <div class="category-arrow">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -692,26 +907,36 @@
         All work
       </button>
       <span class="reel-title">Animations</span>
-      <span class="reel-counter" id="counter-animations">1 / 3</span>
+      <span class="reel-counter" id="counter-animations">1 / 6</span>
     </div>
     <div class="reel-track-wrapper">
       <div class="reel-track" id="track-animations">
 
         <div class="reel-slide">
           <div class="reel-slide-media">
-            <!-- ANIMATION 1 — paste your YouTube video ID below (the part after ?v=) -->
-            <iframe src="https://www.youtube.com/embed/f7QmLVrX4SA" allowfullscreen title="Animation 1"></iframe>
+            <!-- ANIMATION 1 - put your custom poster image at images/anim-1-poster.jpg -->
+            <div class="video-poster" data-video-id="f7QmLVrX4SA" onclick="playVideo(this)">
+              <img src="images/anim-1-poster.jpg" alt="Hadithi Time with Sifa and Jake - click to play">
+              <div class="video-poster-play">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
           </div>
           <div class="reel-slide-info">
             <span class="slide-title">Hadithi Time with Sifa and Jake</span>
-            <p class="slide-desc">My best animated work Yet— The first episode to an animated Kenyan children series.</p>
+            <p class="slide-desc">My best animated work yet. The first episode to an animated Kenyan children series.</p>
           </div>
         </div>
 
         <div class="reel-slide">
           <div class="reel-slide-media">
-            <!-- ANIMATION 2 — paste your YouTube video ID below -->
-            <iframe src="https://www.youtube.com/embed/Pjb9ZcmEfa8" allowfullscreen title="Animation 2"></iframe>
+            <!-- ANIMATION 2 - put your custom poster image at images/anim-2-poster.jpg -->
+            <div class="video-poster" data-video-id="Pjb9ZcmEfa8" onclick="playVideo(this)">
+              <img src="images/anim-2-poster.jpg" alt="Zawadi Insurance Ad - click to play">
+              <div class="video-poster-play">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
           </div>
           <div class="reel-slide-info">
             <span class="slide-title">Zawadi Insurance Ad</span>
@@ -721,12 +946,73 @@
 
         <div class="reel-slide">
           <div class="reel-slide-media">
-            <!-- ANIMATION 3 — paste your YouTube video ID below -->
-            <iframe src="https://www.youtube.com/embed/dK39D-jDOdw" allowfullscreen title="Animation 3"></iframe>
+            <!-- ANIMATION 3 - put your custom poster image at images/anim-3-poster.jpg -->
+            <div class="video-poster" data-video-id="dK39D-jDOdw" onclick="playVideo(this)">
+              <img src="images/anim-3-poster.jpg" alt="Adventures with Elsy Ad - click to play">
+              <div class="video-poster-play">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
           </div>
           <div class="reel-slide-info">
             <span class="slide-title">Adventures with Elsy Ad</span>
             <p class="slide-desc">A long form animated ad for a fictional tours company.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media">
+            <!-- ANIMATION 4 - put your custom poster image at images/anim-4-poster.jpg -->
+            <div class="video-poster" data-video-id="sbeIZFq8sGY" onclick="playVideo(this)">
+              <img src="images/anim-4-poster.jpg" alt="Dispute Mediation Centre of Africa Intro - click to play">
+              <div class="video-poster-play">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="reel-slide-info">
+            <div class="client-badge-wrap" onclick="this.classList.toggle('show')">
+              <span class="slide-client-badge">Dispute Mediation Centre of Africa</span>
+              <div class="client-tooltip">Dispute Mediation Centre of Africa is a Kenyan organisation focused on alternative dispute resolution, negotiation, and mediation services. I wrote, animated, and edited this explainer to help introduce their work to a wider audience.</div>
+            </div>
+            <span class="slide-title">Firm Introduction</span>
+            <p class="slide-desc">An animated explainer introducing Dispute Mediation Centre of Africa and their work in negotiation and mediation.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media">
+            <!-- ANIMATION 5 - put your custom poster image at images/anim-5-poster.jpg -->
+            <div class="video-poster" data-video-id="1Bxz7cpWShI" onclick="playVideo(this)">
+              <img src="images/anim-5-poster.jpg" alt="Law Class: Negotiation - click to play">
+              <div class="video-poster-play">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="reel-slide-info">
+            <div class="client-badge-wrap" onclick="this.classList.toggle('show')">
+              <span class="slide-client-badge">Dispute Mediation Centre of Africa</span>
+              <div class="client-tooltip">Dispute Mediation Centre of Africa is a Kenyan organisation focused on alternative dispute resolution, negotiation, and mediation services. I wrote, animated, and edited this explainer to help introduce their work to a wider audience.</div>
+            </div>
+            <span class="slide-title">Law Class: Negotiation</span>
+            <p class="slide-desc">A short explainer breaking down how negotiation works within the Kenyan legal system.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media">
+            <!-- ANIMATION 6 - put your custom poster image at images/anim-6-poster.jpg -->
+            <div class="video-poster" data-video-id="cZxZBHejgEs" onclick="playVideo(this)">
+              <img src="images/anim-6-poster.jpg" alt="Rugano ria Wanjira - click to play">
+              <div class="video-poster-play">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="reel-slide-info">
+            <span class="slide-title">Rugano ria Wanjira</span>
+            <p class="slide-desc">An early proof of concept for a personal animation project. The story follows a woman who fights death. Still very much a work in progress.</p>
           </div>
         </div>
 
@@ -743,6 +1029,9 @@
         <div class="reel-dot active" onclick="goToSlide('animations',0)"></div>
         <div class="reel-dot" onclick="goToSlide('animations',1)"></div>
         <div class="reel-dot" onclick="goToSlide('animations',2)"></div>
+        <div class="reel-dot" onclick="goToSlide('animations',3)"></div>
+        <div class="reel-dot" onclick="goToSlide('animations',4)"></div>
+        <div class="reel-dot" onclick="goToSlide('animations',5)"></div>
       </div>
     </div>
   </div>
@@ -764,7 +1053,7 @@
           <div class="reel-slide-media"><img src="images/illus-1.jpg" alt="Illustration 1"></div>
           <div class="reel-slide-info">
             <span class="slide-title">Wafuraaa Concept Illustration</span>
-            <p class="slide-desc">A hillarously Kenyan character design — Pushing myself out of corporate design work.</p>
+            <p class="slide-desc">A hillarously Kenyan character design, pushing myself out of corporate design work.</p>
           </div>
         </div>
 
@@ -817,7 +1106,10 @@
         <div class="reel-slide">
           <div class="reel-slide-media"><img src="images/gd-tfc-1.jpg" alt="TFC design 1"></div>
           <div class="reel-slide-info">
-            <span class="slide-client-badge">The Feminist Code</span>
+            <div class="client-badge-wrap" onclick="this.classList.toggle('show')">
+              <span class="slide-client-badge">The Feminist Code</span>
+              <div class="client-tooltip">The Feminist Code is a Pan-African organisation advancing feminist thought and comprehensive sexuality education through workshops, digital campaigns, and community programs. I designed recurring campaign and social graphics turning their monthly themes into bold, consistent visuals.</div>
+            </div>
             <span class="slide-title">Design One</span>
             <p class="slide-desc">Pan-African feminist and sexuality education organisation.</p>
           </div>
@@ -826,7 +1118,10 @@
         <div class="reel-slide">
           <div class="reel-slide-media"><img src="images/gd-tfc-2.jpg" alt="TFC design 2"></div>
           <div class="reel-slide-info">
-            <span class="slide-client-badge">The Feminist Code</span>
+            <div class="client-badge-wrap" onclick="this.classList.toggle('show')">
+              <span class="slide-client-badge">The Feminist Code</span>
+              <div class="client-tooltip">The Feminist Code is a Pan-African organisation advancing feminist thought and comprehensive sexuality education through workshops, digital campaigns, and community programs. I designed recurring campaign and social graphics turning their monthly themes into bold, consistent visuals.</div>
+            </div>
             <span class="slide-title">Design Two</span>
             <p class="slide-desc">Pan-African feminist and sexuality education organisation.</p>
           </div>
@@ -835,7 +1130,10 @@
         <div class="reel-slide">
           <div class="reel-slide-media"><img src="images/gd-tfc-3.jpg" alt="TFC design 3"></div>
           <div class="reel-slide-info">
-            <span class="slide-client-badge">The Feminist Code</span>
+            <div class="client-badge-wrap" onclick="this.classList.toggle('show')">
+              <span class="slide-client-badge">The Feminist Code</span>
+              <div class="client-tooltip">The Feminist Code is a Pan-African organisation advancing feminist thought and comprehensive sexuality education through workshops, digital campaigns, and community programs. I designed recurring campaign and social graphics turning their monthly themes into bold, consistent visuals.</div>
+            </div>
             <span class="slide-title">Design Three</span>
             <p class="slide-desc">Pan-African feminist and sexuality education organisation.</p>
           </div>
@@ -844,7 +1142,10 @@
         <div class="reel-slide">
           <div class="reel-slide-media"><img src="images/gd-glow-1.jpg" alt="Glow Together 1"></div>
           <div class="reel-slide-info">
-            <span class="slide-client-badge">Glow Together Foundation</span>
+            <div class="client-badge-wrap" onclick="this.classList.toggle('show')">
+              <span class="slide-client-badge">Glow Together Foundation</span>
+              <div class="client-tooltip">Glow Together Foundation is a Kenyan non-profit providing mentorship, education support, and community care for orphaned and vulnerable children. I created visual materials to help the foundation communicate its mission to donors and partners.</div>
+            </div>
             <span class="slide-title">Design One</span>
             <p class="slide-desc">Kenyan NGO dedicated to mentorship and support for orphaned children.</p>
           </div>
@@ -853,7 +1154,10 @@
         <div class="reel-slide">
           <div class="reel-slide-media"><img src="images/gd-glow-2.jpg" alt="Glow Together 2"></div>
           <div class="reel-slide-info">
-            <span class="slide-client-badge">Glow Together Foundation</span>
+            <div class="client-badge-wrap" onclick="this.classList.toggle('show')">
+              <span class="slide-client-badge">Glow Together Foundation</span>
+              <div class="client-tooltip">Glow Together Foundation is a Kenyan non-profit providing mentorship, education support, and community care for orphaned and vulnerable children. I created visual materials to help the foundation communicate its mission to donors and partners.</div>
+            </div>
             <span class="slide-title">Design Two</span>
             <p class="slide-desc">Kenyan NGO dedicated to mentorship and support for orphaned children.</p>
           </div>
@@ -862,7 +1166,10 @@
         <div class="reel-slide">
           <div class="reel-slide-media"><img src="images/gd-lila-1.jpg" alt="Live Life Adventures 1"></div>
           <div class="reel-slide-info">
-            <span class="slide-client-badge">Live Life Adventures</span>
+            <div class="client-badge-wrap" onclick="this.classList.toggle('show')">
+              <span class="slide-client-badge">Live Life Adventures</span>
+              <div class="client-tooltip">I designed promotional graphics and social content for Live Life Adventures, helping this Kenyan tours company showcase curated trips and grow their audience online.</div>
+            </div>
             <span class="slide-title">Design One</span>
             <p class="slide-desc">Kenyan travel and tours company curating immersive local experiences.</p>
           </div>
@@ -871,7 +1178,10 @@
         <div class="reel-slide">
           <div class="reel-slide-media"><img src="images/gd-lila-2.jpg" alt="Live Life Adventures 2"></div>
           <div class="reel-slide-info">
-            <span class="slide-client-badge">Live Life Adventures</span>
+            <div class="client-badge-wrap" onclick="this.classList.toggle('show')">
+              <span class="slide-client-badge">Live Life Adventures</span>
+              <div class="client-tooltip">I designed promotional graphics and social content for Live Life Adventures, helping this Kenyan tours company showcase curated trips and grow their audience online.</div>
+            </div>
             <span class="slide-title">Design Two</span>
             <p class="slide-desc">Kenyan travel and tours company curating immersive local experiences.</p>
           </div>
@@ -880,7 +1190,10 @@
         <div class="reel-slide">
           <div class="reel-slide-media"><img src="images/gd-doodle-1.jpg" alt="Doodle Solutions 1"></div>
           <div class="reel-slide-info">
-            <span class="slide-client-badge">Doodle Solutions</span>
+            <div class="client-badge-wrap" onclick="this.classList.toggle('show')">
+              <span class="slide-client-badge">Doodle Solutions</span>
+              <div class="client-tooltip">I collaborated with Doodle Solutions, a branding and print production firm, on identity pieces and marketing collateral for their client-facing work.</div>
+            </div>
             <span class="slide-title">Design One</span>
             <p class="slide-desc">Branding and printing firm specialising in identity and visual communication.</p>
           </div>
@@ -889,7 +1202,10 @@
         <div class="reel-slide">
           <div class="reel-slide-media"><img src="images/gd-doodle-2.jpg" alt="Doodle Solutions 2"></div>
           <div class="reel-slide-info">
-            <span class="slide-client-badge">Doodle Solutions</span>
+            <div class="client-badge-wrap" onclick="this.classList.toggle('show')">
+              <span class="slide-client-badge">Doodle Solutions</span>
+              <div class="client-tooltip">I collaborated with Doodle Solutions, a branding and print production firm, on identity pieces and marketing collateral for their client-facing work.</div>
+            </div>
             <span class="slide-title">Design Two</span>
             <p class="slide-desc">Branding and printing firm specialising in identity and visual communication.</p>
           </div>
@@ -926,7 +1242,7 @@
         All work
       </button>
       <span class="reel-title">Personal Projects</span>
-      <span class="reel-counter" id="counter-personal">1 / 3</span>
+      <span class="reel-counter" id="counter-personal">1 / 5</span>
     </div>
     <div class="reel-track-wrapper">
       <div class="reel-track" id="track-personal">
@@ -955,6 +1271,22 @@
           </div>
         </div>
 
+        <div class="reel-slide">
+          <div class="reel-slide-media"><img src="images/personal-4.jpg" alt="Death concept art for Rugano ria Wanjira"></div>
+          <div class="reel-slide-info">
+            <span class="slide-title">Death - Concept Art</span>
+            <p class="slide-desc">The final concept design for Death, a character from Rugano ria Wanjira, drawing influence from across multiple African communities.</p>
+          </div>
+        </div>
+
+        <div class="reel-slide">
+          <div class="reel-slide-media"><img src="images/personal-5.jpg" alt="Storyboard for Rugano ria Wanjira"></div>
+          <div class="reel-slide-info">
+            <span class="slide-title">Rugano ria Wanjira - Storyboard</span>
+            <p class="slide-desc">Storyboard work for Rugano ria Wanjira, mapping out the story of a woman who fights death.</p>
+          </div>
+        </div>
+
       </div>
     </div>
     <div class="reel-nav">
@@ -968,6 +1300,8 @@
         <div class="reel-dot active" onclick="goToSlide('personal',0)"></div>
         <div class="reel-dot" onclick="goToSlide('personal',1)"></div>
         <div class="reel-dot" onclick="goToSlide('personal',2)"></div>
+        <div class="reel-dot" onclick="goToSlide('personal',3)"></div>
+        <div class="reel-dot" onclick="goToSlide('personal',4)"></div>
       </div>
     </div>
   </div>
@@ -984,18 +1318,18 @@
   </div>
   <div>
     <p class="about-body">
-      I'm Alvin — an animator, illustrator, and graphic designer based in Nairobi, Kenya. My work sits at the intersection of clean visual storytelling and the most African creative tradition: bold shapes, deliberate color, and imagery rooted in the continent's richness.
+      I'm Alvin, an animator, illustrator, and graphic designer based in Nairobi, Kenya. My work sits at the intersection of clean visual storytelling and the most African creative tradition: bold shapes, deliberate color, and imagery rooted in the continent's richness.
     </p>
     <p class="about-body">
-      I've worked across animation, editorial illustration, brand identity, and campaign design — for NGOs, foundations, and creative businesses. Whether building a character or a campaign poster, my goal is the same: make something that holds the eye and earns its space.
+      I was the person behind Hadithi Time with Sifa and Jake, an animated Kenyan children's series I wrote, directed voice overs for, animated, and edited from the ground up. I've worked across animation, editorial illustration, brand identity, and campaign design for NGOs, foundations, and creative businesses, including The Feminist Code, Glow Together Foundation, Live Life Adventures, and Doodle Solutions, building work that holds the eye and earns its space.
     </p>
     <div class="about-tags">
-      <span class="about-tag">2D Animation</span>
-      <span class="about-tag">3D Animation</span>
-      <span class="about-tag">Illustration</span>
-      <span class="about-tag">Graphic Design</span>
-      <span class="about-tag">Visual Storytelling</span>
-      <span class="about-tag">Branding</span>
+      <button class="about-tag linked" onclick="openReel('animations')">2D Animation</button>
+      <button class="about-tag unlinked">3D Projects</button>
+      <button class="about-tag linked" onclick="openReel('personal')">Illustration</button>
+      <button class="about-tag linked" onclick="openReel('graphicdesign')">Graphic Design</button>
+      <button class="about-tag linked" onclick="openReel('illustrations')">Visual Storytelling</button>
+      <button class="about-tag linked" onclick="openReel('graphicdesign')">Branding</button>
     </div>
   </div>
 </section>
@@ -1013,6 +1347,10 @@
     <a href="tel:+254112865398" class="contact-link">
       <span class="contact-link-label">Phone</span>
       <span class="contact-link-value">+254 112 865 398</span>
+    </a>
+    <a href="https://www.instagram.com/alvin_designed_it" target="_blank" rel="noopener" class="contact-link">
+      <span class="contact-link-label">Instagram</span>
+      <span class="contact-link-value">@alvin_designed_it</span>
     </a>
   </div>
 </section>
@@ -1033,11 +1371,80 @@
     cycler.style.transform = `translateY(-${titleIdx * 1.4}em)`;
   }, 2200);
 
+  // ── HERO CHARACTER CYCLER ──
+  const heroContainer = document.getElementById('heroCharacter');
+  const heroImgs = document.querySelectorAll('#heroCharacter img');
+  const heroCaptions = document.querySelectorAll('#heroCharacter .hero-caption');
+  let heroIdx = 0;
+  let heroInterval = null;
+
+  function heroAdvance() {
+    heroImgs[heroIdx].classList.remove('active');
+    heroImgs[heroIdx].style.transform = '';
+    heroCaptions[heroIdx].classList.remove('active');
+    heroIdx = (heroIdx + 1) % heroImgs.length;
+    heroImgs[heroIdx].classList.add('active');
+    heroCaptions[heroIdx].classList.add('active');
+  }
+
+  function startHeroCycle() {
+    if (!heroInterval) heroInterval = setInterval(heroAdvance, 3000);
+  }
+
+  function stopHeroCycle() {
+    clearInterval(heroInterval);
+    heroInterval = null;
+  }
+
+  if (heroImgs.length > 1 && heroContainer) {
+    startHeroCycle();
+    heroContainer.addEventListener('mouseenter', stopHeroCycle);
+    heroContainer.addEventListener('mouseleave', startHeroCycle);
+  }
+
+  // ── GENTLE IDLE SWAY (continuous, sine-based) ──
+  let heroHovering = false;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (heroContainer && heroImgs.length && !prefersReducedMotion) {
+    const swayStart = performance.now();
+
+    function swayLoop(now) {
+      if (!heroHovering) {
+        const t = (now - swayStart) / 1000;
+        const dx = Math.sin(t * 0.5) * 16;
+        const dy = Math.sin(t * 0.35 + 1.1) * 12;
+        const rot = Math.sin(t * 0.4 + 0.6) * 2.5;
+        const activeImg = heroImgs[heroIdx];
+        if (activeImg) {
+          activeImg.style.transform = `translate(calc(-50% + ${dx.toFixed(2)}px), ${dy.toFixed(2)}px) rotate(${rot.toFixed(2)}deg)`;
+        }
+      }
+      requestAnimationFrame(swayLoop);
+    }
+    requestAnimationFrame(swayLoop);
+
+    heroContainer.addEventListener('mouseenter', () => {
+      heroHovering = true;
+      heroImgs.forEach(img => { img.style.transform = ''; });
+    });
+    heroContainer.addEventListener('mouseleave', () => {
+      heroHovering = false;
+    });
+  }
+
+  // ── CLICK-TO-PLAY VIDEO POSTERS ──
+  function playVideo(posterEl) {
+    const videoId = posterEl.getAttribute('data-video-id');
+    window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+  }
+
   // ── REEL STATE ──
   const reelState = {};
 
   function openReel(id) {
     document.getElementById('categoryGrid').style.display = 'none';
+    document.querySelectorAll('.reel-view').forEach(r => r.classList.remove('active'));
     document.getElementById('reel-' + id).classList.add('active');
     if (!reelState[id]) reelState[id] = 0;
     updateReel(id);
